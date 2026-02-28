@@ -1,0 +1,215 @@
+# =========================
+# Clash Meta / Mihomo 精简配置（保留“自动测速”，移除“自动选择节点”：小白友好版）
+# 你要的效果：
+# - 仍然保留 url-test 自动测速（地区内自动选最快）
+# - 但是不再有“♻️ 自动选择（全局自动挑最快）”这种会自动选节点的组
+# - 默认不会自动切换：你在面板里手动选“某个地区节点/地区自动/某个具体节点”即可
+# =========================
+
+# -------------------------
+# 【1】自建节点区（你只改这里）
+# -------------------------
+# 节点 name 建议包含关键字（方便地区组自动筛选）：
+# 新加坡：新 / SG / Singapore
+# 日本：日 / JP / Japan
+# 美国：美 / US / States / America
+# 台湾：台 / TW / Taiwan
+
+proxies:  # 节点列表（你自建节点都在这里）
+  - {name: 直连, type: direct}  
+
+  # ====== 已导入节点（从链接生成）======
+  - {name: 🇸🇬 阿里-顶级IX-懒猫SG, server: 8.163.61.125, port: 10001, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+  - {name: 🇸🇬 阿里-懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+  - {name: 🇯🇵 SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
+  - {name: 🇯🇵 阿里-SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
+  - {name: 🇵🇱 波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
+  - {name: 🇹🇼 阿里-19.9TW, server: 8.163.61.125, port: 1001, type: vless, uuid: 1147f784-983d-4628-a7bd-b45b218e8e7f, tls: true, servername: www.speedtest.net, skip-cert-verify: true, network: tcp, reality-opts: {public-key: _u7u-MAb_I3ClJznAWEItZlJOU7bhnsPq_zZ8IUaCDA }, client-fingerprint: chrome, udp: true}
+  - {name: 🇹🇼 阿里-顶级IX-19.9TW, server: 8.163.61.125, port: 10005, type: ss, cipher: 2022-blake3-aes-256-gcm, password: 'EKVyyxdWgp4RWiF/0wtdK7R4B4h1YlJkRC7tonjGOFU=:ZoWIuhHMDUrTBPlK1B588dDrOuH5+c84DPGmrBFz9cE=', udp: true}
+  - {name: 🇹🇼 GCP-TW, server: 34.81.109.3, port: 14443, type: vless, uuid: c991e013-44ea-44d7-acbe-aa9a4eba2ad3, tls: true, servername: www.cloudflare.com, skip-cert-verify: true, flow: xtls-rprx-vision, network: tcp, reality-opts: {public-key: DPWdB5xWf2tljZBXmBJGk5zp3emOL5yvWnJVo_DEjHs}, client-fingerprint: chrome, udp: true}
+  # ====== 自建节点示例（取消注释并填入真实参数）======
+  # - {name: "SG-01", type: vless, server: x.x.x.x, port: 443, uuid: "xxxx", tls: true, udp: true}
+  # - {name: "JP-01", type: trojan, server: x.x.x.x, port: 443, password: "xxxx", sni: "xxx.com", udp: true}
+  # - {name: "US-01", type: hysteria2, server: x.x.x.x, port: 443, password: "xxxx", sni: "xxx.com", udp: true}
+  # - {name: "TW-01", type: ss, server: x.x.x.x, port: 443, cipher: aes-128-gcm, password: "xxxx", udp: true}
+
+# -------------------------
+# 【1.5】机场订阅（订阅节点和自建节点一起用）
+# -------------------------
+proxy-providers:  # 机场订阅源（自动下载更新节点列表）
+  S-UI:  # 订阅名称（可自定义）
+    type: http  # 订阅类型（http=远程链接）
+    url: "https://sui.schao.qzz.io:2096/sub/kukumi2?format=clash"  # 机场订阅链接
+    interval: 3600  # 订阅更新间隔（秒，3600=每小时更新一次）
+    health-check:  # 节点健康检查设置
+      enable: true  # 是否启用节点健康检查
+      url: "https://www.gstatic.com/generate_204"  # 健康检查地址
+      interval: 300  # 健康检查间隔（秒，300=每5分钟）
+    override:  # 覆盖订阅中节点的某些设置
+      udp: true  # 强制开启 UDP 支持
+
+# -------------------------
+# 【2】基础监听设置
+# -------------------------
+mixed-port: 7890  # 本机代理端口（HTTP+SOCKS 混合）
+allow-lan: true  # 允许局域网设备连接本机代理
+bind-address: "*"  # 监听地址（* 表示所有网卡）
+ipv6: false  # 是否启用 IPv6（false=关闭）
+unified-delay: true  # 延迟显示更统一（更好看/更一致）
+tcp-concurrent: true  # 并发 TCP 连接优化（提升体验）
+log-level: warning  # 日志等级（warning 较安静）
+global-client-fingerprint: chrome  # TLS 指纹（chrome 更兼容）
+keep-alive-idle: 600  # 连接空闲保持时间（秒）
+keep-alive-interval: 15  # keepalive 探测间隔（秒）
+
+profile:  # 配置持久化相关设置块
+  store-selected: true  # 记住你在面板里选的策略/节点
+  store-fake-ip: true  # 记住 fake-ip 缓存（减少重复变化）
+
+# -------------------------
+# 【3】嗅探
+# -------------------------
+sniffer:  # 嗅探功能块（帮助按域名分流更准）
+  enable: true  # 是否启用该功能块
+  sniff:  # 嗅探协议/端口设置块
+    HTTP:  # 嗅探 HTTP 流量
+      ports: [80, 8080-8880]  # 嗅探的端口范围
+      override-destination: true  # 用嗅探到的真实域名覆盖目的地址（更好分流）
+    TLS:  # 嗅探 TLS 流量（HTTPS）
+      ports: [443, 8443]  # 嗅探的端口范围
+    QUIC:  # 嗅探 QUIC（HTTP/3）
+      ports: [443, 8443]  # 嗅探的端口范围
+  skip-domain:  # 配置块开始
+    - "Mijia Cloud"  
+    - "+.push.apple.com"  
+
+# -------------------------
+# 【4】TUN（可选）
+# -------------------------
+tun:  # TUN 模式块（让所有软件都自动走规则）
+  enable: true  # 是否启用该功能块
+  stack: mixed  # TUN 协议栈（mixed=兼容性好）
+  dns-hijack: ["any:53", "tcp://any:53"]  # 劫持 DNS 到本程序（保证分流按规则）
+  auto-route: true  # 自动写路由（开启让流量走 TUN 虚拟网卡）
+  auto-redirect: false  # 自动透明代理（这里关闭）
+  auto-detect-interface: true  # 自动检测网卡（开启确保正确识别出口）
+
+# -------------------------
+# 【5】DNS
+# -------------------------
+dns:  # DNS 设置块（解析与分流强相关）
+  enable: true  # 是否启用该功能块
+  cache-algorithm: arc  # DNS 缓存算法（arc 更稳）
+  listen: 0.0.0.0:1053  # DNS 监听地址端口（给系统/路由器用）
+  ipv6: false  # 是否启用 IPv6（false=关闭）
+  respect-rules: true  # DNS 也遵守 rules 分流（很重要）
+  enhanced-mode: fake-ip  # 增强 DNS 模式（fake-ip 更利于分流）
+  fake-ip-range: 28.0.0.1/8  # fake-ip 使用的地址段
+
+  fake-ip-filter-mode: blacklist  # fake-ip 过滤模式（blacklist=黑名单）
+  fake-ip-filter:  # 配置块开始
+    - "rule-set:fakeipfilter_domain"  
+
+  default-nameserver:  # 配置块开始
+    - https://223.5.5.5/dns-query  
+
+  proxy-server-nameserver:  # 配置块开始
+    - https://dns.alidns.com/dns-query  
+    - https://doh.pub/dns-query  
+
+  nameserver:  # 配置块开始
+    - https://dns.alidns.com/dns-query  
+    - https://doh.pub/dns-query  
+
+# -------------------------
+# 【6】策略组
+# -------------------------
+# 说明：
+# - 已移除自动测速组，所有节点均手动选择
+# - 想看延迟 → 在面板里点测速按钮即可
+proxy-groups:  # 策略组（面板里显示的组）
+  # 总开关：国外流量默认走它（你手动选择）
+  - {name: 🚀 默认代理, type: select, include-all: true, include-all-providers: true}  # 一个策略组（select=手动选）
+
+  # 分流业务：可单独指定地区/具体节点，也可跟随默认代理
+  - {name: 📹 YouTube, type: select, proxies: [🚀 默认代理, 🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # 一个策略组（select=手动选）
+  - {name: 🔍 Google, type: select, proxies: [🚀 默认代理, 🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # 一个策略组（select=手动选）
+  - {name: 📲 Telegram, type: select, proxies: [🚀 默认代理, 🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # 一个策略组（select=手动选）
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🚀 默认代理, 🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # 一个策略组（select=手动选）
+  - {name: 🪟 Microsoft, type: select, proxies: [🚀 默认代理, 🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # 一个策略组（select=手动选）
+  - {name: 🤖 AI 服务, type: select, proxies: [🇺🇸美国节点, 🇯🇵日本节点, 🇸🇬新加坡节点, 🇹🇼台湾节点, 🌍 其他地区, 直连]}  # AI 服务策略组（ChatGPT/Claude/Gemini）
+
+  # 兜底
+  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, 直连]}  # 一个策略组（select=手动选；url-test=自动测速选最快）
+
+  # ===== 手动地区组：按名字关键字自动归类 =====
+  - {name: 🇸🇬新加坡节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(台|TW|日|JP|韩|KR|深|美|US|港|HK)).)*$"}  # 地区手动组：按节点名字关键字自动归类到该地区
+  - {name: 🇯🇵日本节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|HK|台|TW|韩|KR|新|SG|美|US)).)*$"}  # 地区手动组：按节点名字关键字自动归类到该地区
+  - {name: 🇺🇸美国节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|HK|台|TW|韩|KR|新|SG|日|JP)).)*$"}  # 地区手动组：按节点名字关键字自动归类到该地区
+  - {name: 🇹🇼台湾节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(台|TW|(?i)Taiwan))^((?!(港|HK|日|JP|韩|KR|新|SG|美|US)).)*$"}  # 地区手动组：按节点名字关键字自动归类到该地区
+  - {name: 🌍 其他地区, type: select, include-all: true, include-all-providers: true, filter: "^((?!(新加坡|坡|狮城|SG|Singapore|日|JP|Japan|美|US|States|America|台|TW|Taiwan|港|HK|Hong|直连)).)*$"}  # 其他地区手动组（波兰、韩国等非主流地区）
+
+# -------------------------
+# 【7】规则
+# -------------------------
+rules:  # 分流规则（决定什么走哪里）
+  - RULE-SET,private_ip,直连,no-resolve  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,private_domain,直连  # 一条分流规则：命中后走指定策略组
+
+  # AI 服务（放在 Google 前面，Gemini 相关域名优先匹配到这里）
+  # --- ChatGPT / OpenAI ---
+  - RULE-SET,openai_domain,🤖 AI 服务  # ChatGPT / OpenAI 核心域名（规则集覆盖）
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI 服务  # ChatGPT 新域名（APP+网页）
+  - DOMAIN-SUFFIX,oaistatic.com,🤖 AI 服务  # OpenAI 静态资源（APP 加载用）
+  - DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI 服务  # OpenAI 用户内容（APP 图片/文件）
+  # --- Claude ---
+  - DOMAIN-SUFFIX,anthropic.com,🤖 AI 服务  # Claude API（APP+网页）
+  - DOMAIN-SUFFIX,claude.ai,🤖 AI 服务  # Claude 网页+APP
+  # --- Gemini ---
+  - DOMAIN,gemini.google.com,🤖 AI 服务  # Gemini 网页版
+  - DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI 服务  # Gemini API（APP 调用）
+  - DOMAIN,aistudio.google.com,🤖 AI 服务  # Google AI Studio
+  - DOMAIN,ai.google.dev,🤖 AI 服务  # Google AI 开发者
+  - DOMAIN-SUFFIX,deepmind.com,🤖 AI 服务  # Google DeepMind（Gemini 底层）
+  - DOMAIN-SUFFIX,deepmind.google,🤖 AI 服务  # Google DeepMind 新域名
+  - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,microsoft_domain,🪟 Microsoft
+  - RULE-SET,youtube_domain,📹 YouTube  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,google_domain,🔍 Google  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,telegram_domain,📲 Telegram  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,google_ip,🔍 Google  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,telegram_ip,📲 Telegram  # 一条分流规则：命中后走指定策略组
+
+  - RULE-SET,geolocation-!cn,🚀 默认代理  # 一条分流规则：命中后走指定策略组
+
+  - RULE-SET,cn_domain,直连  # 一条分流规则：命中后走指定策略组
+  - RULE-SET,cn_ip,直连  # 一条分流规则：命中后走指定策略组
+
+  - MATCH,🐟 漏网之鱼  # 一条分流规则：命中后走指定策略组
+
+# -------------------------
+# 【8】规则集来源（只保留用到的）
+# -------------------------
+rule-anchor:  # 规则源模板（复用配置）
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}  # IP 规则集模板（mrs 格式）
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}  # Domain 规则集模板（mrs 格式）
+  ip_yaml: &ip_yaml {type: http, interval: 86400, behavior: ipcidr, format: yaml}  # IP 规则集模板（yaml 格式）
+  domain_yaml: &domain_yaml {type: http, interval: 86400, behavior: domain, format: yaml}  # Domain 规则集模板（yaml 格式）
+
+rule-providers:  # 规则集来源（自动下载更新）
+  # --- Domain 规则集 ---
+  fakeipfilter_domain: {<<: *domain, url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}  # 参数设置
+  private_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}  # 参数设置
+  youtube_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}  # 参数设置
+  google_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}  # 参数设置
+  telegram_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}  # 参数设置
+  openai_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"}  # ChatGPT/OpenAI 规则集
+  geolocation-!cn: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}  # 一套规则集：从 url 下载并定期更新
+  cn_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}  # 参数设置
+  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  microsoft_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  # --- IP 规则集 ---
+  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}  # 参数设置
+  google_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}  # 参数设置
+  telegram_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}  # 参数设置
+  cn_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}  # 参数设置
