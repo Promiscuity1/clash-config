@@ -146,7 +146,7 @@ rules:
   # --- 第二梯队：各种特色敏感业务精准分流（越敏感越靠前） ---
   # 自定义域名强制代理（排在此处优先匹配，确保不走直连）
   - DOMAIN-SUFFIX,free.28.al,默认代理
-  - DOMAIN-SUFFIX,28.al,默认代理
+  - DOMAIN-SUFFIX,emby.ichinosekotomi.com,默认代理
 
   # AI 领域容易封号，所以排在前面优先匹配，保证万无一失
   - RULE-SET,openai_domain,AI 服务  
