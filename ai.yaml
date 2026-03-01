@@ -1,14 +1,12 @@
 payload:
-  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI 服务  # ChatGPT 新域名（APP+网页）
-  - DOMAIN-SUFFIX,oaistatic.com,🤖 AI 服务  # OpenAI 静态资源（APP 加载用）
-  - DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI 服务  # OpenAI 用户内容（APP 图片/文件）
-  # --- Claude ---
-  - DOMAIN-SUFFIX,anthropic.com,🤖 AI 服务  # Claude API（APP+网页）
-  - DOMAIN-SUFFIX,claude.ai,🤖 AI 服务  # Claude 网页+APP
-  # --- Gemini ---
-  - DOMAIN,gemini.google.com,🤖 AI 服务  # Gemini 网页版
-  - DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI 服务  # Gemini API（APP 调用）
-  - DOMAIN,aistudio.google.com,🤖 AI 服务  # Google AI Studio
-  - DOMAIN,ai.google.dev,🤖 AI 服务  # Google AI 开发者
-  - DOMAIN-SUFFIX,deepmind.com,🤖 AI 服务  # Google DeepMind（Gemini 底层）
-  - DOMAIN-SUFFIX,deepmind.google,🤖 AI 服务  # Google DeepMind 新域名
+  - +.chatgpt.com
+  - +.oaistatic.com
+  - +.oaiusercontent.com
+  - +.anthropic.com
+  - +.claude.ai
+  - +.generativelanguage.googleapis.com
+  - +.deepmind.com
+  - +.deepmind.google
+  - gemini.google.com
+  - aistudio.google.com
+  - ai.google.dev
