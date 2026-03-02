@@ -14,13 +14,13 @@ proxies:
   - {name: 直连, type: direct}  # 系统自带的直连节点（不走代理）
 
   # ====== 下面是你目前导入的自建节点 ======
-  - {name: 阿里-顶级IX-懒猫SG, server: 8.163.61.125, port: 10001, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
-  - {name: 阿里-懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+ 
+  - {name: 阿里懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
   - {name: SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
-  - {name: 阿里-SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
-  - {name: 波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
-  - {name: 阿里-19.9TW, server: 8.163.61.125, port: 1001, type: vless, uuid: 1147f784-983d-4628-a7bd-b45b218e8e7f, tls: true, servername: www.speedtest.net, skip-cert-verify: true, network: tcp, reality-opts: {public-key: _u7u-MAb_I3ClJznAWEItZlJOU7bhnsPq_zZ8IUaCDA }, client-fingerprint: chrome, udp: true}
-  - {name: 阿里-顶级IX-19.9TW, server: 8.163.61.125, port: 10005, type: ss, cipher: 2022-blake3-aes-256-gcm, password: 'EKVyyxdWgp4RWiF/0wtdK7R4B4h1YlJkRC7tonjGOFU=:ZoWIuhHMDUrTBPlK1B588dDrOuH5+c84DPGmrBFz9cE=', udp: true}
+  - {name: 阿里SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
+  - {name: 阿里波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
+  - {name: 阿里19.9TW, server: 8.163.61.125, port: 1001, type: vless, uuid: 1147f784-983d-4628-a7bd-b45b218e8e7f, tls: true, servername: www.speedtest.net, skip-cert-verify: true, network: tcp, reality-opts: {public-key: _u7u-MAb_I3ClJznAWEItZlJOU7bhnsPq_zZ8IUaCDA }, client-fingerprint: chrome, udp: true}
+  
   - {name: GCP-TW, server: 34.81.109.3, port: 14443, type: vless, uuid: c991e013-44ea-44d7-acbe-aa9a4eba2ad3, tls: true, servername: www.cloudflare.com, skip-cert-verify: true, flow: xtls-rprx-vision, network: tcp, reality-opts: {public-key: DPWdB5xWf2tljZBXmBJGk5zp3emOL5yvWnJVo_DEjHs}, client-fingerprint: chrome, udp: true}
 
 # -----------------------------------------------------------------------
