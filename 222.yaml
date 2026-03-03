@@ -14,7 +14,6 @@ proxies:
   - {name: 直连, type: direct}  # 系统自带的直连节点（不走代理）
 
   # ====== 下面是你目前导入的自建节点 ======
-  - {name: hy2-hop, type: hysteria2, server: ssui.schao.qzz.io, port: 8443, ports: "50000-55000", password: dRanZSFSUe, sni: ssui.schao.qzz.io, skip-cert-verify: true, alpn: [h3]}
   - {name: 懒猫SG-TGSG, type: trojan, server: 103.200.219.63, port: 11915, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
   - {name: 阿里-TGSG, type: trojan, server: 8.163.61.125, port: 1003, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
   - {name: 阿里-懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
@@ -40,6 +39,18 @@ proxy-providers:
       interval: 300  # 每 5 分钟测一次
     override:  
       udp: true  # 强制让机场的所有节点开启 UDP 支持（打游戏、语音通常需要 UDP）
+
+  HY2-Sub:  # HY2 专属订阅
+    type: http
+    url: "https://ssui.schao.qzz.io:2096/sub/hy2?format=clash"
+    interval: 3600
+    health-check:
+      enable: true
+      url: "https://www.gstatic.com/generate_204"
+      interval: 300
+    override:
+      udp: true
+      ports: "50000-55000"  # 核心！强制为这个订阅里下发的所有节点添加端口跳跃范围
 
 # -----------------------------------------------------------------------
 # 【3】核心底层设置（这部分建议保持默认，除非你知道在干什么）
