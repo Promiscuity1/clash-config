@@ -14,8 +14,9 @@ proxies:
   - {name: 直连, type: direct}  # 系统自带的直连节点（不走代理）
 
   # ====== 下面是你目前导入的自建节点 ======
- 
-  - {name: 阿里懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+  - {name: hy2-hop, type: hysteria2, server: ssui.schao.qzz.io, port: 8443, ports: '50000-55000', hop-interval: 30, password: dRanZSFSUe, sni: ssui.schao.qzz.io, skip-cert-verify: true, alpn: [h3], udp: true}
+  - {name: 阿里-顶级IX-懒猫SG, server: 8.163.61.125, port: 10001, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+  - {name: 阿里-懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
   - {name: SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
