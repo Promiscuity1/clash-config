@@ -15,8 +15,8 @@ proxies:
 
   # ====== 下面是你目前导入的自建节点 ======
   - {name: HY2-跳跃节点, type: hysteria2, server: 82.21.81.97, port: 50000, ports: '50000-51000', password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, alpn: [h3]}
-  - {name: DMIT-US, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, udp: true}
-  - {name: DMIT-US, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 	46ff74f4-95a9-4c4e-850e-59955dd9b659, udp: true, tls: true, skip-cert-verify: false, flow: xtls-rprx-vision, servername: cloud.schao.qzz.io, client-fingerprint: chrome, reality-opts: { public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ } }
+  - {name: 大妈, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, udp: true}
+  - {name: 大妈, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 	46ff74f4-95a9-4c4e-850e-59955dd9b659, udp: true, tls: true, skip-cert-verify: false, flow: xtls-rprx-vision, servername: cloud.schao.qzz.io, client-fingerprint: chrome, reality-opts: { public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ } }
   - {name: 美国落地, type: trojan, server: 64.186.252.83, port: 1000, password: 206fba21-ed21-42e8-8746-570634db51d8, sni: 64.186.252.83, client-fingerprint: chrome, skip-cert-verify: true, udp: true}
   - {name: 阿里-TGSG, type: trojan, server: 8.163.61.125, port: 1003, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
   - {name: SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
