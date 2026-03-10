@@ -15,32 +15,18 @@ proxies:
 
   # ====== 下面是你目前导入的自建节点 ======
   - {name: HY2-跳跃节点, type: hysteria2, server: 82.21.81.97, port: 50000, ports: '50000-51000', password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, alpn: [h3]}
+  - {name: DMIT-Tor+TLS, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, udp: true}
+  - {name: DMIT-VL+RE, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 570bb5b3-9d75-492f-8317-1577bfc55fbd, udp: true, tls: true, skip-cert-verify: false, flow: xtls-rprx-vision, servername: cloud.schao.qzz.io, client-fingerprint: chrome, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}}
   
-  - {name: 懒猫SG-TGSG, type: trojan, server: 103.200.219.63, port: 11915, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
+  
   - {name: 阿里-TGSG, type: trojan, server: 8.163.61.125, port: 1003, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
-  - {name: 阿里-懒猫SG, server: 8.163.61.125, port: 1002, type: ss, cipher: 2022-blake3-aes-256-gcm, password: LLm92OwYXB1ig6boTjJgeVEPK8tCnk80DHr7FqktpSk=, udp: true}
+  
   - {name: SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
   - {name: 阿里19.9TW, server: 8.163.61.125, port: 1001, type: vless, uuid: 1147f784-983d-4628-a7bd-b45b218e8e7f, tls: true, servername: www.speedtest.net, skip-cert-verify: true, network: tcp, reality-opts: {public-key: _u7u-MAb_I3ClJznAWEItZlJOU7bhnsPq_zZ8IUaCDA }, client-fingerprint: chrome, udp: true}
   
   - {name: GCP-TW, server: 34.81.109.3, port: 14443, type: vless, uuid: c991e013-44ea-44d7-acbe-aa9a4eba2ad3, tls: true, servername: www.cloudflare.com, skip-cert-verify: true, flow: xtls-rprx-vision, network: tcp, reality-opts: {public-key: DPWdB5xWf2tljZBXmBJGk5zp3emOL5yvWnJVo_DEjHs}, client-fingerprint: chrome, udp: true}
-
-# -----------------------------------------------------------------------
-# 【2】机场订阅区（获取别人提供的节点列表）
-# -----------------------------------------------------------------------
-# 软件会自动去这个地址下载最新的节点，并将它们和上面的自建节点混合在一起用。
-proxy-providers:  
-  S-UI:  # 这是你给机场起的名字（展示在部分客户端里）
-    type: http  # 表示通过网络链接获取
-    url: "https://sui.schao.qzz.io:2096/sub/kukumi2?format=clash"  # 机场的订阅链接（如果你换了机场，就改这里）
-    interval: 3600  # 多久自动更新一次？3600秒 = 1小时
-    health-check:  
-      enable: true  # 开启节点健康检查（软件会帮你测试哪些节点能连上）
-      url: "https://www.gstatic.com/generate_204"  # 测试用的网址（谷歌测速地址，返回空数据很省流量）
-      interval: 300  # 每 5 分钟测一次
-    override:  
-      udp: true  # 强制让机场的所有节点开启 UDP 支持（打游戏、语音通常需要 UDP）
 
 # -----------------------------------------------------------------------
 # 【3】核心底层设置（这部分建议保持默认，除非你知道在干什么）
@@ -112,11 +98,11 @@ dns:
 # -----------------------------------------------------------------------
 # 【7】策略组（也就是你在软件面板里看到的那些切换按钮）
 # -----------------------------------------------------------------------
-# 注：所有组均配置了 include-all / include-all-providers
-# 这意味着，你的自建节点 + 机场节点，通通都会被塞进下面这些组里供你选择！
+# 注：所有组均配置了 include-all
+# 这意味着，你的自建节点通通都会被塞进下面这些组里供你选择！
 proxy-groups:  
   # 1. 总司令部（几乎所有普通国外流量默认指向此地）
-  - {name: 默认代理, type: select, include-all: true, include-all-providers: true}
+  - {name: 默认代理, type: select, include-all: true}
 
   # 2. 定制服务（给特定的 APP 设置特定的线路。如果你不想管，就手动选跟【默认代理】一致）
   - {name: AI 服务, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  # 专门给 ChatGPT、Claude、Gemini 用
@@ -130,12 +116,12 @@ proxy-groups:
   - {name: 漏网之鱼, type: select, proxies: [默认代理, 直连]}
 
   # 4. 地区智能筛选区（利用正则表达式 filter，自动根据节点名称上的国旗、汉字或字母把节点分类）
-  # 以后如果订阅里加了新节点，不用手动去拽它，它只要名字带"美/US"就会被自动吸入美国组！
-  - {name: 新加坡节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(台|TW|日|JP|韩|KR|深|美|US|港|HK)).)*$"}  
-  - {name: 日本节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|HK|台|TW|韩|KR|新|SG|美|US)).)*$"}  
-  - {name: 美国节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|HK|台|TW|韩|KR|新|SG|日|JP)).)*$"}  
-  - {name: 台湾节点, type: select, include-all: true, include-all-providers: true, filter: "(?=.*(台|TW|(?i)Taiwan))^((?!(港|HK|日|JP|韩|KR|新|SG|美|US)).)*$"}  
-  - {name: 其他地区, type: select, include-all: true, include-all-providers: true, filter: "^((?!(新加坡|坡|狮城|SG|Singapore|日|JP|Japan|美|US|States|America|台|TW|Taiwan|港|HK|Hong|直连)).)*$"}  
+  - {name: 新加坡节点, type: select, include-all: true, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(台|TW|日|JP|韩|KR|深|美|US|港|HK)).)*$"}  
+  - {name: 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|HK|台|TW|韩|KR|新|SG|美|US)).)*$"}  
+  - {name: 美国节点, type: select, include-all: true, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|HK|台|TW|韩|KR|新|SG|日|JP)).)*$"}  
+  - {name: 台湾节点, type: select, include-all: true, filter: "(?=.*(台|TW|(?i)Taiwan))^((?!(港|HK|日|JP|韩|KR|新|SG|美|US)).)*$"}  
+  - {name: 其他地区, type: select, include-all: true, filter: "^((?!(新加坡|坡|狮城|SG|Singapore|日|JP|Japan|美|US|States|America|台|TW|Taiwan|港|HK|Hong|直连)).)*$"}  
+
 
 # -----------------------------------------------------------------------
 # 【8】分流规则（交通警察！判断你访问的网址该走哪条路）
