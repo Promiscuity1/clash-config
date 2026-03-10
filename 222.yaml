@@ -16,16 +16,13 @@ proxies:
   # ====== 下面是你目前导入的自建节点 ======
   - {name: HY2-跳跃节点, type: hysteria2, server: 82.21.81.97, port: 50000, ports: '50000-51000', password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, alpn: [h3]}
   - {name: DMIT-Tor+TLS, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, udp: true}
-  - { name: DMIT-VL+RE, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 	46ff74f4-95a9-4c4e-850e-59955dd9b659, udp: true, tls: true, skip-cert-verify: false, flow: xtls-rprx-vision, servername: cloud.schao.qzz.io, client-fingerprint: chrome, reality-opts: { public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ } }
-  
-  
+  - {name: DMIT-VL+RE, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 	46ff74f4-95a9-4c4e-850e-59955dd9b659, udp: true, tls: true, skip-cert-verify: false, flow: xtls-rprx-vision, servername: cloud.schao.qzz.io, client-fingerprint: chrome, reality-opts: { public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ } }
+  - {name: 美国落地, type: trojan, server: 64.186.252.83, port: 1000, password: 206fba21-ed21-42e8-8746-570634db51d8, sni: 64.186.252.83, client-fingerprint: chrome, skip-cert-verify: true, udp: true}
   - {name: 阿里-TGSG, type: trojan, server: 8.163.61.125, port: 1003, password: dRanZSFSUe, udp: true, sni: developer.apple.com, client-fingerprint: chrome, network: tcp, reality-opts: {public-key: VRRRZ2pq37K3jyBld7kyL2u0yO5a29JtyUX0tB7rCg0, short-id: '90'}}
-  
   - {name: SKY-JP, server: 212.135.211.187, port: 23662, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里SKY-JP, server: 8.163.61.125, port: 1004, type: ss, cipher: 2022-blake3-aes-128-gcm, password: JS+FZuLoIPomqWTB53Ar9w==, udp: true}
   - {name: 阿里波兰华沙, server: 8.163.61.125, port: 1000, type: ss, cipher: 2022-blake3-aes-128-gcm, password: Vc5gHcXqFvyQKxSBRqdc4Q==, udp: true}
   - {name: 阿里19.9TW, server: 8.163.61.125, port: 1001, type: vless, uuid: 1147f784-983d-4628-a7bd-b45b218e8e7f, tls: true, servername: www.speedtest.net, skip-cert-verify: true, network: tcp, reality-opts: {public-key: _u7u-MAb_I3ClJznAWEItZlJOU7bhnsPq_zZ8IUaCDA }, client-fingerprint: chrome, udp: true}
-  
   - {name: GCP-TW, server: 34.81.109.3, port: 14443, type: vless, uuid: c991e013-44ea-44d7-acbe-aa9a4eba2ad3, tls: true, servername: www.cloudflare.com, skip-cert-verify: true, flow: xtls-rprx-vision, network: tcp, reality-opts: {public-key: DPWdB5xWf2tljZBXmBJGk5zp3emOL5yvWnJVo_DEjHs}, client-fingerprint: chrome, udp: true}
 
 # -----------------------------------------------------------------------
@@ -109,7 +106,8 @@ proxy-groups:
   - {name: YouTube, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  
   - {name: Google, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  
   - {name: Telegram, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  
-  - {name: GitHub, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  
+  - {name: GitHub, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}
+  - {name: discord, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点,其他地区]}
   - {name: Microsoft, type: select, proxies: [默认代理, 美国节点, 日本节点, 新加坡节点, 台湾节点, 其他地区, 直连]}  
 
   # 3. 兜底（如果一切规则都没有命中，未知的流量去哪？）
@@ -149,7 +147,8 @@ rules:
   - RULE-SET,youtube_domain,YouTube  
   - RULE-SET,telegram_domain,Telegram  
   - RULE-SET,telegram_ip,Telegram  # TG经常直接通过IP连接，所以必须配IP规则
-  - RULE-SET,google_domain,Google  
+  - RULE-SET,discord_domain,discord
+  - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google  
 
   # --- 第三梯队：苹果服务和国内直连 ---
@@ -194,6 +193,7 @@ rule-providers:  # 词典下载单列表（所有的名字都跟你在【8】里
   gemini_domain: {<<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.yaml"}
   claude_domain: {<<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.yaml"}
   github_domain: { <<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.yaml"}
+  discord_domain: { <<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.yaml"}
   microsoft_domain: { <<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.yaml"}
   google_domain: {<<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml"}
   geolocation-!cn: {<<: *domain_yaml, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml"}
