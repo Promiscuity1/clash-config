@@ -36,15 +36,16 @@
 # =========================================================
 proxies:
   # Trojan 节点
-  - {name: DMIT-US2222222, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, alpn: [http/1.1], network: tcp}
+  - {name: DMIT-US, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, alpn: [http/1.1], network: tcp}
 
   # VLESS + Vision 节点
-  - {name: DMIT-US1111, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
+  - {name: DMIT-US1, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
 
   # VLESS + Reality + Vision 节点
-  - {name: GCPSG-TW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
+  - {name: GCPSG-FACTW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
 
-
+  # Hysteria2 节点，支持端口跳跃
+  - {name: HY2端口跳跃, type: hysteria2, server: 82.21.81.97, port: 50500, ports: 50000-51000, password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, tfo: false}
 
   # Shadowsocks 2022 节点
   - {name: 阿里SKY-JP, type: ss, server: 8.163.61.125, port: 1000, cipher: 2022-blake3-aes-128-gcm, password: seCyuK0zs0tWL3l66af66A==, skip-cert-verify: false, udp: false}
@@ -329,7 +330,7 @@ proxy-groups:
   # 这些组通过节点名称正则匹配自动收集对应地区节点
   # 所以节点命名越规范，分组越准确
   # -------------------------
-  #- {name: HK,      type: select, include-all: true, filter: "(?=.*(港|HK|HongKong))^((?!(台|日|韩|新|美|TW|JP|SG|US)).)*$"}
+  - {name: HK,      type: select, include-all: true, filter: "(?=.*(港|HK|HongKong))^((?!(台|日|韩|新|美|TW|JP|SG|US)).)*$"}
   - {name: TW,      type: select, include-all: true, filter: "(?=.*(台|TW|Taiwan))^((?!(港|日|韩|新|美|HK|JP|SG|US)).)*$"}
   - {name: JP,      type: select, include-all: true, filter: "(?=.*(日|JP|Japan))^((?!(港|台|韩|新|美|HK|TW|SG|US)).)*$"}
   - {name: SG,      type: select, include-all: true, filter: "(?=.*(新加坡|坡|SG|Singapore))^((?!(港|台|日|韩|美|HK|TW|JP|US)).)*$"}
