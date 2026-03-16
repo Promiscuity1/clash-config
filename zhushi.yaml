@@ -42,10 +42,9 @@ proxies:
   - {name: DMIT-US1, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
 
   # VLESS + Reality + Vision 节点
-  - {name: GCPSG-FACTW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
+  - {name: GCPSG-FAC台湾, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
 
-  # Hysteria2 节点，支持端口跳跃
-  - {name: HY2端口跳跃, type: hysteria2, server: 82.21.81.97, port: 50500, ports: 50000-51000, password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, tfo: false}
+ 
 
   # Shadowsocks 2022 节点
   - {name: 阿里SKY-JP, type: ss, server: 8.163.61.125, port: 1000, cipher: 2022-blake3-aes-128-gcm, password: seCyuK0zs0tWL3l66af66A==, skip-cert-verify: false, udp: false}
