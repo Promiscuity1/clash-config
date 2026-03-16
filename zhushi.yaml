@@ -36,10 +36,10 @@
 # =========================================================
 proxies:
   # Trojan 节点
-  - {name: DMIT-US2, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, alpn: [http/1.1], network: tcp}
+  - {name: DMIT-US2222222, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, alpn: [http/1.1], network: tcp}
 
   # VLESS + Vision 节点
-  - {name: DMIT-US1, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
+  - {name: DMIT-US1111, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
 
   # VLESS + Reality + Vision 节点
   - {name: GCPSG-TW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
