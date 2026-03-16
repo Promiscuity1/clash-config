@@ -1,57 +1,112 @@
-# ===== 机场订阅 =====
+# =========================================================
+# 这是一个 Clash Meta / Mihomo 风格的配置文件
+# 主要功能：
+# 1. 定义代理节点
+# 2. 设置本地代理端口
+# 3. 配置 DNS
+# 4. 启用 TUN 模式
+# 5. 按网站/应用分类分流
+# =========================================================
+
+
+# =========================================================
+# ===== 机场订阅（当前未启用）=====
+# 如果你以后想使用订阅链接，而不是手动写 proxies 节点，
+# 可以把下面注释去掉并填好 url。
+# =========================================================
 #proxy-providers:
-  #provider1:
-   # url: "xxxxxxxxxx"
-    #type: http
-    #interval: 86400
-    #health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
-    #proxy: DIRECT
-  
+#  provider1:
+#    url: "xxxxxxxxxx"   # 机场订阅链接
+#    type: http          # 通过 HTTP 获取
+#    interval: 86400     # 每 86400 秒更新一次（1天）
+#    health-check:       # 节点健康检查
+#      enable: true
+#      url: "https://www.gstatic.com/generate_204"
+#      interval: 300
+#    proxy: DIRECT       # 拉订阅时走直连
+
+
+# =========================================================
 # ===== 自定义节点 =====
+# 这里是你手动添加的节点列表
+# name: 节点显示名称
+# type: 节点协议类型（trojan / vless / hysteria2 / ss）
+# server: 服务器地址
+# port: 端口
+# =========================================================
 proxies:
+  # Trojan 节点
   - {name: DMIT-US, type: trojan, server: cloud.schao.qzz.io, port: 443, password: WHLdDLlG7V, sni: cloud.schao.qzz.io, client-fingerprint: chrome, skip-cert-verify: false, alpn: [http/1.1], network: tcp}
+
+  # VLESS + Vision 节点
   - {name: DMIT-US1, type: vless, server: cloud.schao.qzz.io, port: 2083, uuid: 46ff74f4-95a9-4c4e-850e-59955dd9b659, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: LmQgrGY7yQp4jpes04N4Rg_lGebx0XYQzxZA3P5AIzQ}, network: tcp, servername: cloud.schao.qzz.io}
-  - {name: GCPSG-FACTW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
-  - {name: HY2端口跳跃, type: hysteria2, server: 82.21.81.97, port: 50500, ports: 50000-51000, password: fe2b9df0, sni: ssui.schao.qzz.io, skip-cert-verify: false, tfo: false}
+
+  # VLESS + Reality + Vision 节点
+  - {name: GCPSG-TW, type: vless, server: 34.143.227.213, port: 1000, uuid: cd118305-89cc-4c80-af9c-13b55da3b986, tls: true, flow: xtls-rprx-vision, client-fingerprint: chrome, skip-cert-verify: false, reality-opts: {public-key: kd0EohqQSEOoXLgLZXnh8Zn8hGM3jIMBgD3lj_2vbBM, short-id: 31253277f7}, network: tcp, servername: developer.apple.com}
+
+
+
+  # Shadowsocks 2022 节点
   - {name: 阿里SKY-JP, type: ss, server: 8.163.61.125, port: 1000, cipher: 2022-blake3-aes-128-gcm, password: seCyuK0zs0tWL3l66af66A==, skip-cert-verify: false, udp: false}
   - {name: 阿里波兰华沙, type: ss, server: 8.163.61.125, port: 20001, cipher: 2022-blake3-aes-128-gcm, password: km17/oIpUIgFlR/DtIWngg==, skip-cert-verify: false, udp: false}
   - {name: 0.3SG, type: ss, server: 113.29.231.218, port: 20241, cipher: 2022-blake3-aes-256-gcm, password: MsdzIUd5E3+6jQ1GGKy1ir5zVOJdTOv3mwct6mK60H4=, skip-cert-verify: false, udp: false}
   - {name: 阿里0.3SG, type: ss, server: 8.163.61.125, port: 1002, cipher: 2022-blake3-aes-256-gcm, password: MsdzIUd5E3+6jQ1GGKy1ir5zVOJdTOv3mwct6mK60H4=, skip-cert-verify: false, udp: false}
   - {name: GCP-SG, type: ss, server: 34.143.227.213, port: 22544, cipher: 2022-blake3-aes-256-gcm, password: JF3mppNv7OdeIIQ+Z7ZwZiFg/x3DFbHQ2zM6AJ/j2VM=, skip-cert-verify: false, udp: false}
 
-# ===== 全局参数 =====
-mixed-port: 7890
-allow-lan: true
-bind-address: "*"
-ipv6: false
-unified-delay: true
-tcp-concurrent: true
-log-level: warning
-global-client-fingerprint: chrome
-keep-alive-idle: 600
-keep-alive-interval: 15
-profile:
-  store-selected: true
-  store-fake-ip: true
 
-# ===== 控制面板 =====
+# =========================================================
+# ===== 全局参数 =====
+# 这一部分控制 Clash 的基础行为
+# =========================================================
+mixed-port: 7890          # 混合代理端口，支持 HTTP 和 SOCKS5
+allow-lan: true           # 允许局域网设备连接你的代理
+bind-address: "*"         # 监听所有地址；配合 allow-lan=true 时，局域网可访问
+ipv6: false               # 关闭 IPv6，避免 IPv6 直连/漏代理问题
+unified-delay: true       # 统一延迟测试方式，测速结果更稳定
+tcp-concurrent: true      # TCP 并发优化，有助于提升连接建立速度
+log-level: warning        # 日志级别：warning=只看警告；排错时可改成 info/debug
+global-client-fingerprint: chrome   # 全局默认模拟 Chrome 指纹
+keep-alive-idle: 600      # TCP keepalive 空闲时间
+keep-alive-interval: 15   # keepalive 探测间隔
+
+profile:
+  store-selected: true    # 记住你在代理组里手动选择过的节点
+  store-fake-ip: true     # 保存 fake-ip 映射缓存，提高体验
+
+
+# =========================================================
+# ===== 控制面板（当前未启用）=====
+# 如果启用 external-controller，就可以用网页或 APP 控制 Clash
+# 但开放到 0.0.0.0 有安全风险，建议仅本机使用并设置 secret
+# =========================================================
 #external-controller: 0.0.0.0:9095
 #secret: ""
 #external-ui: ui
 #external-ui-name: zashboard
 #external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 
-# ===== 嗅探 =====
+
+# =========================================================
+# ===== 嗅探 sniffer =====
+# 嗅探的作用：从流量中识别真实目标域名，帮助更准确地匹配规则
+# 比如某些流量只有 IP，没有显式域名，开启后更利于分流
+# =========================================================
 sniffer:
   enable: true
   sniff:
     HTTP:
-      ports: [80, 8080-8880]
-      override-destination: true
+      ports: [80, 8080-8880]         # 在这些端口上嗅探 HTTP
+      override-destination: true     # 嗅探到真实域名后，用真实域名覆盖目标
     TLS:
-      ports: [443, 8443]
+      ports: [443, 8443]             # 在这些端口上嗅探 TLS/HTTPS
     QUIC:
-      ports: [443, 8443]
+      ports: [443, 8443]             # 在这些端口上嗅探 QUIC/HTTP3
+
+  # 这些域名不进行嗅探
+  # 常见原因：
+  # 1. 局域网服务
+  # 2. Apple/推送/证书服务
+  # 3. 某些容易因为嗅探出问题的服务
   skip-domain:
     - "+.lan"
     - "+.local"
@@ -98,41 +153,70 @@ sniffer:
     - "*.tencentapp.cn"
     - "www.uhovohu.cloud"
 
-# ===== TUN 入站（与 sing-box 保持一致，auto-route 关闭由外部管理）=====
+
+# =========================================================
+# ===== TUN 入站 =====
+# TUN 模式可以让系统流量自动进入 Clash 处理
+# 适用于“不想每个软件单独设置代理”的场景
+#
+# 但你这里 auto-route / auto-redirect / auto-detect-interface 都是 false
+# 说明：TUN 虽然开了，但“系统路由接管”交给外部处理
+# 常用于路由器、容器、特殊网络环境
+# 如果你是普通桌面客户端，这里可能需要改成 true 才能完整接管流量
+# =========================================================
 tun:
   enable: true
-  # system/gvisor/mixed
-  stack: mixed
-  dns-hijack: ["any:53", "tcp://any:53"]
-  #使用nikki，混入全部不修改的情况，开启接口指定为nikki
+  stack: mixed                       # system/gvisor/mixed，这里用 mixed 兼容性较好
+  dns-hijack: ["any:53", "tcp://any:53"]  # 劫持 DNS 请求到 Clash DNS
+
+  # 使用 nikki 时，如果要指定接口，可取消下面注释
   #device: nikki
-  #使用仅内核自行修改下面三项为true
+
+  # auto-route 关闭，表示由外部管理系统路由
   auto-route: false
   auto-redirect: false
   auto-detect-interface: false
 
+
+# =========================================================
 # ===== DNS =====
+# Clash 内置 DNS 配置
+# 这是整份配置非常重要的部分
+# 你当前使用的是 fake-ip 模式
+# =========================================================
 dns:
   enable: true
-  cache-algorithm: arc
-  listen: 0.0.0.0:1053
-  ipv6: false
-  respect-rules: false
-  enhanced-mode: fake-ip
-  fake-ip-range: 28.0.0.1/8
-  fake-ip-filter-mode: blacklist
+  cache-algorithm: arc           # DNS 缓存算法，提升命中效率
+  listen: 0.0.0.0:1053           # DNS 监听地址和端口；0.0.0.0 表示局域网也可访问
+  ipv6: false                    # DNS 不返回 IPv6 记录
+  respect-rules: false           # DNS 查询不严格跟随分流规则；简单但有时精度稍差
+  enhanced-mode: fake-ip         # 使用 fake-ip 模式，利于分流
+  fake-ip-range: 28.0.0.1/8      # fake-ip 地址池范围
+  fake-ip-filter-mode: blacklist # 黑名单模式：命中 fake-ip-filter 的域名不使用 fake-ip
+
+  # 默认 DNS 服务器，一般用于启动初期或基础解析
   default-nameserver:
     - 223.5.5.5
     - 223.6.6.6
+
+  # 代理服务器域名解析专用 DNS
+  # 防止代理节点自己的域名解析失败
   proxy-server-nameserver:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
+
+  # 直连流量使用的 DNS
   direct-nameserver:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
+
+  # 主 DNS 上游
   nameserver:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
+
+  # 下面这些域名不使用 fake-ip，而返回真实 IP
+  # 常见于：局域网、Apple 服务、游戏、某些易出问题的服务
   fake-ip-filter:
     - "*.lan"
     - "*.local"
@@ -204,10 +288,24 @@ dns:
     - "*.tencentapp.cn"
     - "www.uhovohu.cloud"
 
+
+# =========================================================
 # ===== 代理组 =====
+# 代理组是“规则最终指向哪里”的地方
+# 你可以在客户端中手动选择各个组走哪个节点
+# =========================================================
 proxy-groups:
-  # --- 顶层选择 ---
+  # -------------------------
+  # 顶层总选择组
+  # include-all: true 表示把所有节点都加入该组供你选择
+  # -------------------------
   - {name: Proxy,       type: select, include-all: true}
+
+  # -------------------------
+  # 各应用/服务分类组
+  # 例如 Discord 命中规则后，就会走 Discord 这个组
+  # 你可以手动指定 Discord 走 Proxy / DIRECT / 某个地区组
+  # -------------------------
   - {name: Discord,     type: select, proxies: [Proxy, DIRECT, REJECT, JP, SG, US, HK, TW, OTHERS1]}
   - {name: Telegram,    type: select, proxies: [Proxy, DIRECT, REJECT, JP, SG, US, HK, TW, OTHERS1]}
   - {name: AI,          type: select, proxies: [Proxy, DIRECT, REJECT, JP, SG, US, HK, TW, OTHERS1]}
@@ -225,40 +323,62 @@ proxy-groups:
   - {name: Speedtest,   type: select, proxies: [Proxy, DIRECT, REJECT, JP, SG, US, HK, TW,OTHERS1]}
   - {name: CN,          type: select, proxies: [DIRECT, Proxy, REJECT, JP, SG, US, HK, TW,OTHERS1]}
   - {name: Final,       type: select, proxies: [Proxy, DIRECT, REJECT, JP, SG, US, HK, TW,OTHERS1]}
-  - {name: HK,      type: select, include-all: true, filter: "(?=.*(港|HK|HongKong))^((?!(台|日|韩|新|美|TW|JP|SG|US)).)*$"}
+
+  # -------------------------
+  # 地区组
+  # 这些组通过节点名称正则匹配自动收集对应地区节点
+  # 所以节点命名越规范，分组越准确
+  # -------------------------
+  #- {name: HK,      type: select, include-all: true, filter: "(?=.*(港|HK|HongKong))^((?!(台|日|韩|新|美|TW|JP|SG|US)).)*$"}
   - {name: TW,      type: select, include-all: true, filter: "(?=.*(台|TW|Taiwan))^((?!(港|日|韩|新|美|HK|JP|SG|US)).)*$"}
   - {name: JP,      type: select, include-all: true, filter: "(?=.*(日|JP|Japan))^((?!(港|台|韩|新|美|HK|TW|SG|US)).)*$"}
   - {name: SG,      type: select, include-all: true, filter: "(?=.*(新加坡|坡|SG|Singapore))^((?!(港|台|日|韩|美|HK|TW|JP|US)).)*$"}
   - {name: US,      type: select, include-all: true, filter: "(?=.*(美|US|United States))^((?!(港|台|日|韩|新|SG|HK|TW|JP)).)*$"}
+
+  # 其他节点，兜底组
   - {name: OTHERS1, type: select, include-all: true}
 
-# ===== 规则 =====
-rules:
-  - RULE-SET,R-fakeipfilter,DIRECT
-  - RULE-SET,R-private,DIRECT
-  - RULE-SET,R-proxylite,Proxy
-  - RULE-SET,R-discord,Discord
-  - RULE-SET,R-telegram,Telegram
-  - RULE-SET,R-ai,AI
-  - RULE-SET,R-FCM,FCM
-  - RULE-SET,R-youtube,YouTube
-  - RULE-SET,R-google,Google
-  - RULE-SET,R-spotify,Spotify
-  - RULE-SET,R-twitter,Twitter
-  - RULE-SET,R-tiktok,TikTok
-  - RULE-SET,R-netflix,Netflix
-  - RULE-SET,R-steam,Steam
-  - RULE-SET,R-github,Github
-  - RULE-SET,R-microsoft,Microsoft
-  - RULE-SET,R-cloudflare,Cloudflare
-  - RULE-SET,R-speedtest,Speedtest
-  - RULE-SET,geolocation-!cn,Proxy
-  - RULE-SET,geosite-cn,DIRECT
-  - RULE-SET,R-telegram-ip,Telegram,no-resolve
-  - RULE-SET,geoip-cn,DIRECT,no-resolve
-  - MATCH,Final
 
+# =========================================================
+# ===== 规则 =====
+# 规则从上到下依次匹配
+# 一旦命中某条规则，就不会继续往下匹配
+# =========================================================
+rules:
+  - RULE-SET,R-fakeipfilter,DIRECT         # fake-ip 过滤相关域名直连
+  - RULE-SET,R-private,DIRECT              # 私有域名/内网域名直连
+  - RULE-SET,R-proxylite,Proxy             # 自定义代理规则走 Proxy
+
+  - RULE-SET,R-discord,Discord             # Discord 相关域名走 Discord 组
+  - RULE-SET,R-telegram,Telegram           # Telegram 相关域名走 Telegram 组
+  - RULE-SET,R-ai,AI                       # AI 相关域名走 AI 组
+  - RULE-SET,R-FCM,FCM                     # Google FCM 推送走 FCM 组
+  - RULE-SET,R-youtube,YouTube             # YouTube 走 YouTube 组
+  - RULE-SET,R-google,Google               # Google 走 Google 组
+  - RULE-SET,R-spotify,Spotify             # Spotify 走 Spotify 组
+  - RULE-SET,R-twitter,Twitter             # Twitter/X 走 Twitter 组
+  - RULE-SET,R-tiktok,TikTok               # TikTok 走 TikTok 组
+  - RULE-SET,R-netflix,Netflix             # Netflix 走 Netflix 组
+  - RULE-SET,R-steam,Steam                 # Steam 走 Steam 组
+  - RULE-SET,R-github,Github               # GitHub 走 Github 组
+  - RULE-SET,R-microsoft,Microsoft         # Microsoft 走 Microsoft 组
+  - RULE-SET,R-cloudflare,Cloudflare       # Cloudflare 走 Cloudflare 组
+  - RULE-SET,R-speedtest,Speedtest         # Speedtest 走 Speedtest 组
+
+  - RULE-SET,geolocation-!cn,Proxy         # 非中国大陆域名默认走代理
+  - RULE-SET,geosite-cn,DIRECT             # 中国大陆域名直连
+
+  - RULE-SET,R-telegram-ip,Telegram,no-resolve  # Telegram IP 段走 Telegram，避免再解析
+  - RULE-SET,geoip-cn,DIRECT,no-resolve         # 中国 IP 直连，避免再解析
+
+  - MATCH,Final                            # 前面都没匹配到时，走 Final 组
+
+
+# =========================================================
 # ===== 规则集锚点 =====
+# 这是 YAML 的锚点写法，相当于定义模板，后面 rule-providers 复用
+# 目的是减少重复书写
+# =========================================================
 rule-anchor:
   ip:           &ip           {type: http, interval: 86400,   behavior: ipcidr,      format: mrs }
   domain:       &domain       {type: http, interval: 86400,   behavior: domain,      format: mrs }
@@ -267,11 +387,23 @@ rule-anchor:
   yaml-classic: &yaml-classic {type: http, interval: 86400,   behavior: classical,   format: yaml}
   list-class:   &list-class   {type: http, interval: 86400,   behavior: classical,   format: text}
 
+
+# =========================================================
 # ===== 规则集定义 =====
+# Clash 会按这里提供的 URL 下载远程规则
+# interval: 86400 表示每天更新一次
+# =========================================================
 rule-providers:
+  # fake-ip 过滤规则
   R-fakeipfilter:                  {<<: *domain,       url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}
+
+  # 私有域名 / 内网规则
   R-private:                       {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+
+  # 你自定义的代理规则
   R-proxylite:                     {<<: *list-class,   url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/proxy.list"}
+
+  # 各种服务域名规则
   R-discord:                       {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/discord.mrs"}
   R-telegram:                      {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
   R-telegram-ip:                   {<<: *ip,           url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
@@ -288,6 +420,8 @@ rule-providers:
   R-microsoft:                     {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
   R-cloudflare:                    {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cloudflare.mrs"}
   R-speedtest:                     {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+
+  # 地理规则
   geolocation-!cn:                 {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
   geosite-cn:                      {<<: *domain,       url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
   geoip-cn:                        {<<: *ip,           url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
