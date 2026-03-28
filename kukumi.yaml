@@ -640,6 +640,7 @@ rules:
 
   - DOMAIN,lite.cn2gias.uk,JP  #守候
   - DOMAIN,embyplus.org,SG     #纸片人
+  - IP-CIDR,34.143.227.213/32,DIRECT,no-resolve
 
   # ══════════════════════════════════════════
   # 1.REJECT
