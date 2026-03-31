@@ -22,7 +22,7 @@
 
 proxy-providers:
   provider1:                                                                                    # 订阅链接，如需多个订阅请复制整段 并修改 provider1 字段 保证唯一性
-    url: "https://gist.githubusercontent.com/Promiscuity1/101608b14e8e6c92332ce2bc2e4865df/raw/huayun"
+    url: "https://sub.schao.qzz.io/0a1Dc0indkEPKdxaqUZy/download/collection/%E8%8A%B1%E4%BA%91%E5%9B%9B%E5%8C%BA?target=ClashMeta"
     type: http
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
