@@ -22,7 +22,7 @@
 
 proxy-providers:
   provider1:                                                                                    # 订阅链接，如需多个订阅请复制整段 并修改 provider1 字段 保证唯一性
-    url: "https://sub.schao.qzz.io/0a1Dc0indkEPKdxaqUZy/download/collection/%E8%8A%B1%E4%BA%91"
+    url: "https://sub.schao.qzz.io/0a1Dc0indkEPKdxaqUZy/download/collection/%E8%8A%B1%E4%BA%91?target=ClashMeta"
     type: http
     interval: 86400
     health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
