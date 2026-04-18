@@ -170,13 +170,13 @@ dns:
     - 119.29.29.29
   proxy-server-nameserver:                   # 节点专线 专职负责解析 “节点” 和 “订阅链接” 的真实 IP
     - https://223.5.5.5/dns-query
-    - https://doh.pub/dns-query
+    - https://119.29.29.29/dns-query
   direct-nameserver:                         # 直连兜底 专职负责解析走 DIRECT 分流规则的域名
     - 223.5.5.5
     - 119.29.29.29
   nameserver:                                # 国外兜底 处理所有未知的兜底域名，防止 DNS 污染 附带节点选择强制走代理出境
-    - https://1.1.1.1/dns-query#Proxy
-    - https://8.8.8.8/dns-query#Proxy
+    - 1.1.1.1/#Proxy
+    - 8.8.8.8/#Proxy
 
   # ── DNS 分流 ──
   nameserver-policy:
@@ -227,7 +227,6 @@ dns:
 FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
 FilterTW: &FilterTW '(?i)(?:🇹🇼|台湾|Tai(?:wan)?|\b(?:TW|TWN)\d*\b)'
 FilterJP: &FilterJP '(?i)(?:🇯🇵|日本|川日|东京|大阪|埼玉|Japan|\b(?:JP|JPN)\d*\b)'
-FilterKR: &FilterKR '(?i)(?:🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
 FilterSG: &FilterSG '(?i)(?:🇸🇬|新加坡|狮|Singapore|\b(?:SG|SGP)\d*\b)'
 FilterUS: &FilterUS '(?i)(?:🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\b(?:US|USA)\d*\b)'
 
@@ -251,39 +250,39 @@ proxy-groups:
   - {name: Proxy,       type: select, include-all: true, filter: *FilterAll, proxies: [OUT]}                            # 全部节点手动选择入口
 
   # ── Proxy App ──
-  - {name: OpenAI,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # OpenAI / ChatGPT
-  - {name: Anthropic,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Anthropic / Claude
-  - {name: AI,          type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # AI 杂项 (Perplexity / Groq / Cerebras / HuggingFace / Cursor / ElevenLabs / ComfyUI / 兜底)
+  - {name: OpenAI,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # OpenAI / ChatGPT
+  - {name: Anthropic,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Anthropic / Claude
+  - {name: AI,          type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # AI 杂项 (Perplexity / Groq / Cerebras / HuggingFace / Cursor / ElevenLabs / ComfyUI / 兜底)
 
-  - {name: YouTube,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # YouTube
-  - {name: Google,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Google 全家桶
-  - {name: Cloudflare,  type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Cloudflare
-  - {name: GitHub,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # GitHub
-  - {name: Microsoft,   type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Microsoft 全家桶
+  - {name: YouTube,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # YouTube
+  - {name: Google,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Google 全家桶
+  - {name: Cloudflare,  type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Cloudflare
+  - {name: GitHub,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # GitHub
+  - {name: Microsoft,   type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Microsoft 全家桶
 
-  - {name: Apple,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Apple 全家桶
+  - {name: Apple,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Apple 全家桶
 
 
-  - {name: X,           type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # X / Twitter / 马斯克系
-  - {name: Meta,        type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Meta (Facebook / Instagram / WhatsApp)
-  - {name: Telegram,    type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Telegram
-  - {name: Discord,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Discord
-  - {name: Social,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # 社交杂项 (Reddit / Tumblr / LINE)
+  - {name: X,           type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # X / Twitter / 马斯克系
+  - {name: Meta,        type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Meta (Facebook / Instagram / WhatsApp)
+  - {name: Telegram,    type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Telegram
+  - {name: Discord,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Discord
+  - {name: Social,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 社交杂项 (Reddit / Tumblr / LINE)
 
-  - {name: TikTok,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # TikTok / 字节跳动海外
-  - {name: Netflix,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Netflix
+  - {name: TikTok,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # TikTok / 字节跳动海外
+  - {name: Netflix,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Netflix
   
-  - {name: Media,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # 流媒体杂项 (Hulu / Prime Video / DAZN / HBO / Disney+ / Vimeo / Twitch / Rumble / Plex)
-
-  
-  - {name: Steam,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # Steam
-
+  - {name: Media,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 流媒体杂项 (Hulu / Prime Video / DAZN / HBO / Disney+ / Vimeo / Twitch / Rumble / Plex)
 
   
-  - {name: Speedtest,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # 测速
+  - {name: Steam,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Steam
+
+
+  
+  - {name: Speedtest,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 测速
  
   # ── R18 默认注释 ──
-  # - {name: R18, type: select, proxies: [Proxy, DIRECT, REJECT, HK, TW, JP, KR, SG, US, OTHERS1]}       # 成人内容
+  # - {name: R18, type: select, proxies: [Proxy, DIRECT, REJECT, HK, TW, JP, SG, US, OTHERS1]}       # 成人内容
 
   
 
@@ -291,14 +290,13 @@ proxy-groups:
   - {name: HK,          type: select, include-all: true, filter: *FilterHK}      # 香港节点
   - {name: TW,          type: select, include-all: true, filter: *FilterTW}      # 台湾节点
   - {name: JP,          type: select, include-all: true, filter: *FilterJP}      # 日本节点
-  - {name: KR,          type: select, include-all: true, filter: *FilterKR}      # 韩国节点
   - {name: SG,          type: select, include-all: true, filter: *FilterSG}      # 新加坡节点
   - {name: US,          type: select, include-all: true, filter: *FilterUS}      # 美国节点
   - {name: OTHERS1,     type: select, include-all: true, filter: *FilterOthers}  # 其他节点 A
 
   # ── CN / Final ──
-  - {name: CN,          type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # 默认国内直连
-  - {name: Final,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, KR, SG, US, OTHERS1]}  # 未匹配流量
+  - {name: CN,          type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 默认国内直连
+  - {name: Final,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 未匹配流量
 
 
 # =======================================================
@@ -640,7 +638,8 @@ rules:
 
   - DOMAIN,lite.cn2gias.uk,JP  #守候
   - DOMAIN,embyplus.org,SG     #纸片人
-  - IP-CIDR,34.143.227.213/32,DIRECT,no-resolve
+  - IP-CIDR,195.172.138.117/32,DIRECT,no-resolve
+ 
 
   # ══════════════════════════════════════════
   # 1.REJECT
