@@ -250,39 +250,39 @@ proxy-groups:
   - {name: Proxy,       type: select, include-all: true, filter: *FilterAll, proxies: [OUT]}                            # 全部节点手动选择入口
 
   # ── Proxy App ──
-  - {name: OpenAI,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # OpenAI / ChatGPT
-  - {name: Anthropic,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Anthropic / Claude
-  - {name: AI,          type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # AI 杂项 (Perplexity / Groq / Cerebras / HuggingFace / Cursor / ElevenLabs / ComfyUI / 兜底)
+  - {name: OpenAI,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # OpenAI / ChatGPT
+  - {name: Anthropic,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Anthropic / Claude
+  - {name: AI,          type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # AI 杂项 (Perplexity / Groq / Cerebras / HuggingFace / Cursor / ElevenLabs / ComfyUI / 兜底)
 
-  - {name: YouTube,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # YouTube
-  - {name: Google,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Google 全家桶
-  - {name: Cloudflare,  type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Cloudflare
-  - {name: GitHub,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # GitHub
-  - {name: Microsoft,   type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Microsoft 全家桶
+  - {name: YouTube,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # YouTube
+  - {name: Google,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Google 全家桶
+  - {name: Cloudflare,  type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Cloudflare
+  - {name: GitHub,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # GitHub
+  - {name: Microsoft,   type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US]}  # Microsoft 全家桶
 
-  - {name: Apple,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Apple 全家桶
+  - {name: Apple,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US]}  # Apple 全家桶
 
 
-  - {name: X,           type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # X / Twitter / 马斯克系
-  - {name: Meta,        type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Meta (Facebook / Instagram / WhatsApp)
-  - {name: Telegram,    type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Telegram
-  - {name: Discord,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Discord
-  - {name: Social,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 社交杂项 (Reddit / Tumblr / LINE)
+  - {name: X,           type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # X / Twitter / 马斯克系
+  - {name: Meta,        type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Meta (Facebook / Instagram / WhatsApp)
+  - {name: Telegram,    type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Telegram
+  - {name: Discord,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Discord
+  - {name: Social,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # 社交杂项 (Reddit / Tumblr / LINE)
 
-  - {name: TikTok,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # TikTok / 字节跳动海外
-  - {name: Netflix,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Netflix
+  - {name: TikTok,      type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # TikTok / 字节跳动海外
+  - {name: Netflix,     type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # Netflix
   
-  - {name: Media,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 流媒体杂项 (Hulu / Prime Video / DAZN / HBO / Disney+ / Vimeo / Twitch / Rumble / Plex)
-
-  
-  - {name: Steam,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # Steam
-
+  - {name: Media,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # 流媒体杂项 (Hulu / Prime Video / DAZN / HBO / Disney+ / Vimeo / Twitch / Rumble / Plex)
 
   
-  - {name: Speedtest,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 测速
+  - {name: Steam,       type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US]}  # Steam
+
+
+  
+  - {name: Speedtest,   type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # 测速
  
   # ── R18 默认注释 ──
-  # - {name: R18, type: select, proxies: [Proxy, DIRECT, REJECT, HK, TW, JP, SG, US, OTHERS1]}       # 成人内容
+  # - {name: R18, type: select, proxies: [Proxy, DIRECT, REJECT, HK, TW, JP, SG, US]}       # 成人内容
 
   
 
@@ -292,11 +292,11 @@ proxy-groups:
   - {name: JP,          type: select, include-all: true, filter: *FilterJP}      # 日本节点
   - {name: SG,          type: select, include-all: true, filter: *FilterSG}      # 新加坡节点
   - {name: US,          type: select, include-all: true, filter: *FilterUS}      # 美国节点
-  - {name: OTHERS1,     type: select, include-all: true, filter: *FilterOthers}  # 其他节点 A
+  
 
   # ── CN / Final ──
-  - {name: CN,          type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 默认国内直连
-  - {name: Final,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US, OTHERS1]}  # 未匹配流量
+  - {name: CN,          type: select, proxies: [DIRECT, Proxy, REJECT, OUT, HK, TW, JP, SG, US]}  # 默认国内直连
+  - {name: Final,       type: select, proxies: [Proxy, DIRECT, REJECT, OUT, HK, TW, JP, SG, US]}  # 未匹配流量
 
 
 # =======================================================
@@ -638,7 +638,8 @@ rules:
 
   - DOMAIN,lite.cn2gias.uk,JP  #守候
   - DOMAIN,embyplus.org,SG     #纸片人
-  - IP-CIDR,195.172.138.117/32,DIRECT,no-resolve
+  - IP-CIDR,8.163.61.125/32,DIRECT,no-resolve
+ 
  
 
   # ══════════════════════════════════════════
